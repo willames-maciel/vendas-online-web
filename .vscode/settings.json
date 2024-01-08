@@ -1,12 +1,12 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
-  "[javascript]": {
-    "editor.tabSize": 4
-  },
-  "[typescript]": {
-    "editor.tabSize": 4
-  },
-  "eslint.validate": ["javascript"]
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "[javascript]": {
+        "editor.tabSize": 4
+    },
+    "[typescript]": {
+        "editor.tabSize": 4
+    },
+    "eslint.validate": ["javascript"]
 }
