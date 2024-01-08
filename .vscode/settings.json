@@ -2,6 +2,11 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "editor.tabSize": 4,
+  "[javascript]": {
+    "editor.tabSize": 4
+  },
+  "[typescript]": {
+    "editor.tabSize": 4
+  },
   "eslint.validate": ["javascript"]
 }
