@@ -1,9 +1,10 @@
-import axios from 'axios';
 import { useState } from 'react';
 
-import Button from '../../../shared/buttons/button/button';
-import SVGLogo from '../../../shared/icons/SVGLogo';
-import Input from '../../../shared/inputs/input/Input';
+import Button from '../../../shared/components/buttons/button/button';
+import { useGlobalContext } from '../../../shared/components/hooks/useGlobalContext';
+import { useRequests } from '../../../shared/components/hooks/useRequests';
+import SVGLogo from '../../../shared/components/icons/SVGLogo';
+import Input from '../../../shared/components/inputs/input/Input';
 import {
     BackgroudImage,
     Container,
@@ -11,8 +12,12 @@ import {
     LimitedContaiver,
     TitleLogin,
 } from '../styles/loginScreeen.styles';
+import { UserType } from '../types/UserType';
 
 const LoginScreen = () => {
+    const { accessToken, setAccessToken } = useGlobalContext();
+    const { postRequest, loading } = useRequests();
+
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
@@ -25,21 +30,11 @@ const LoginScreen = () => {
     };
 
     const handleSubmit = async () => {
-        await axios({
-            method: 'post',
-            url: 'http://localhost:8080/auth',
-            data: {
-                email: email,
-                password: senha,
-            },
-        })
-            .then((result) => {
-                alert(`Fez Login: ${result.data.accessToken}`);
-                return result.data;
-            })
-            .catch(() => {
-                alert('Usuário e senha inválido');
-            });
+        const uer = await postRequest<UserType>('http://localhost:8080/auth', {
+            email: email,
+            password: senha,
+        });
+        setAccessToken(uer?.accessToken || '');
     };
 
     return (
@@ -48,7 +43,7 @@ const LoginScreen = () => {
                 <Containerlogin>
                     <LimitedContaiver>
                         <SVGLogo />
-                        <TitleLogin type="secondary">Login</TitleLogin>
+                        <TitleLogin type="secondary">Login ({accessToken})</TitleLogin>
                         <Input
                             title="E-mail"
                             margin="32px 0px 0px"
@@ -62,7 +57,12 @@ const LoginScreen = () => {
                             onChange={handleSenha}
                             value={senha}
                         />
-                        <Button type="primary" margin="64px 0px 16px 0px" onClick={handleSubmit}>
+                        <Button
+                            loading={loading}
+                            type="primary"
+                            margin="64px 0px 16px 0px"
+                            onClick={handleSubmit}
+                        >
                             ENTRAR
                         </Button>
                     </LimitedContaiver>
