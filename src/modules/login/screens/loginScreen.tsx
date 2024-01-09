@@ -2,13 +2,13 @@ import axios from 'axios';
 import { useState } from 'react';
 
 import Button from '../../../shared/buttons/button/button';
+import SVGLogo from '../../../shared/icons/SVGLogo';
 import Input from '../../../shared/inputs/input/Input';
 import {
     BackgroudImage,
     Container,
     Containerlogin,
     LimitedContaiver,
-    LogoImage,
     TitleLogin,
 } from '../styles/loginScreeen.styles';
 
@@ -47,7 +47,7 @@ const loginScreen = () => {
             <Container>
                 <Containerlogin>
                     <LimitedContaiver>
-                        <LogoImage src="./logo.jpg" />
+                        <SVGLogo />
                         <TitleLogin type="secondary">Login</TitleLogin>
                         <Input
                             title="E-mail"
